@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+#debug data
+*.out.*
+
+# Graphic files
+*.ppm

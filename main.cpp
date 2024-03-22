@@ -3,23 +3,12 @@
 #include "color.h"
 #include "vec3.h"
 #include "ray.h"
+#include "sphere.h"
+#include "hittable.h"
 
-double hit_sphere(const point3& center, double radius, const ray& r) {
-    vec3 oc = r.origin() - center;
-    auto a = r.direction().length_squared();
-    auto half_b = dot(oc, r.direction());
-    auto c = oc.length_squared() - radius*radius;
-    auto discriminant = half_b*half_b - a*c;
-
-    if (discriminant < 0) {
-        return -1.0;
-    } else {
-        return (-half_b - sqrt(discriminant) ) / a;
-    }
-}
-
-color ray_color(const ray& r) {
-    auto t = hit_sphere(point3(0, 0, -1), 0.5, r);
+color ray_color(const hittable& h, const ray& r) {
+    hit_record rec{};
+    auto t = h.hit(r, 0, 1, rec);
     if (t > 0.0)
     {
         vec3 n = unit_vector(r.at(t) - vec3(0, 0, -1));
@@ -60,7 +49,8 @@ int main() {
     auto pixel00_loc = viewport_upper_left + 0.5 * (pixel_delta_u + pixel_delta_v);
 
     // Render
-
+    
+    sphere sphere1(point3(0, 0, -1), 0.5);
     std::cout << "P3\n" << image_width << ' ' << image_height << "\n255\n";
 
     for (int j = 0; j < image_height; ++j) {
@@ -70,7 +60,7 @@ int main() {
             auto ray_direction = pixel_center - camera_center;
             ray r(camera_center, ray_direction);
             
-            color pixel_color = ray_color(r);
+            color pixel_color = ray_color(sphere1, r);
             write_color(std::cout, pixel_color);
         }
     }

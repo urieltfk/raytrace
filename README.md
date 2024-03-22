@@ -7,6 +7,9 @@ https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-ray-tra
 
 https://pragprog.com/titles/jbtracer/the-ray-tracer-challenge/
 
+A good explainatioin on vector normals and what they are for:
+https://www.youtube.com/watch?v=FiYDkMZCSF4
+
 # compiling:
 To compile type make and press enter.
 

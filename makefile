@@ -16,7 +16,7 @@ clean:
 	rm -rf a.out.dSYM
 	rm -f opt.out
 
-optimized : opt.out
+opt : opt.out
 	./opt.out > image.ppm
 	open image.ppm
 

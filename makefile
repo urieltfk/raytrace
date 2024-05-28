@@ -1,9 +1,11 @@
 CC=g++
 CFLAGS=-Wall -Wextra --std=c++20
 DEBUG=-g
+INC=-I./include
+DEP=include/camera.h include/color.h include/hittable_list.h include/hittable.h include/interval.h include/ray.h include/rtweekend.h include/sphere.h include/vec3.h
 
-a.out: main.cpp camera.h color.h hittable_list.h hittable.h interval.h ray.h rtweekend.h sphere.h vec3.h
-	$(CC) $(CFLAGS) $(DEBUG) $< -o $@
+a.out: main.cpp $(DEP)
+	$(CC) $(CFLAGS) $(DEBUG) $(INC) $< -o $@
 	
 image: a.out
 	./a.out > image.ppm
@@ -18,5 +20,5 @@ optimized : opt.out
 	./opt.out > image.ppm
 	open image.ppm
 
-opt.out: main.cpp camera.h color.h hittable_list.h hittable.h interval.h ray.h rtweekend.h sphere.h vec3.h
-	$(CC) $(CFLAGS) -O3 $< -o $@
+opt.out: main.cpp $(DEP)
+	$(CC) $(CFLAGS) $(INC) -O3 $< -o $@
